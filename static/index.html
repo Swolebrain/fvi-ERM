@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>FVI Employer Relations</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="left">
+    <div id="wrap">
+      <form action="">
+      <input id="search" name="search" type="text"
+      placeholder="enter company name">
+      <input id="search_submit" value="Rechercher" type="submit">
+      </form>
+    </div>
+    <div class="companies"></div>
+  </div>
+  <div class="right">
+    <div class="two-col">
+      <div class="input-field">
+        <div class="label">Name</div>
+        <input type="text" id="name">
+      </div>
+      <div class="input-field">
+        <div class="label">Status</div>
+        <input type="text" id="status">
+      </div>
+    </div>
+    <div class="two-col">
+      <div class="input-field">
+        <div class="label">Contact</div>
+        <input type="text" id="contact_person">
+      </div>
+      <div class="input-field">
+        <div class="label">E-mail</div>
+        <input type="text" id="email">
+      </div>
+    </div>
+    <div class="two-col">
+      <div class="input-field">
+        <div class="label">Website</div>
+        <input type="text" id="website">
+      </div>
+      <div class="input-field">
+        <div class="label">Phone</div>
+        <input type="text" id="phone">
+      </div>
+    </div>
+    <div class="one-col">
+      <div class="label">Address</div>
+      <input type="text" id="address" />
+    </div>
+    <div class="one-col">
+      <div class="label">Notes</div>
+      <textarea id="notes" ></textarea>
+    </div>
+  </div>
+  <script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+  <script>
+    var companyData;
+    $.ajax({
+      url: '/employers',
+      success: function(resp){
+        console.log(resp);
+        companyData = resp;
+        for (var i = 0; i < resp.length; i++){
+          var notes = "";
+          if (resp[i].notes) notes = resp[i].notes.substring(0, 20);
+          var companyDiv = `<div class="company-preview" data-index="${i}">
+            <h2>${resp[i].name}</h2>
+            <h3>Status: <span>${resp[i].status}</span></h3>
+            <h3>${notes}</h3>
+          </div>`;
+          $(".companies").append(companyDiv);
+        }
+      }
+    });
+
+    $(".left").on("click", ".company-preview", function(){
+      var companyIndex = Number($(this).attr("data-index"));
+      console.log(companyIndex)
+      if (!companyData[companyIndex]) return;
+      var company = companyData[companyIndex];
+      $("#name").val("").val(company.name);
+      $("#status").val("").val(company.status);
+      $("#contact_person").val("").val(company.contact_person);
+      $("#email").val("").val(company.email);
+      $("#website").val("").val(company.website);
+      $("#phone").val("").val(company.phone);
+      $("#address").val("").val(company.address);
+      $("#notes").val("").val(company.notes);
+      $(".right").css("opacity", 1);
+    });
+
+  </script>
+</body>
+</html>
