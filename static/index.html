@@ -58,46 +58,6 @@
       <textarea id="notes" ></textarea>
     </div>
   </div>
-  <script
-  src="https://code.jquery.com/jquery-3.1.1.min.js"
-  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-  crossorigin="anonymous"></script>
-  <script>
-    var companyData;
-    $.ajax({
-      url: '/employers',
-      success: function(resp){
-        console.log(resp);
-        companyData = resp;
-        for (var i = 0; i < resp.length; i++){
-          var notes = "";
-          if (resp[i].notes) notes = resp[i].notes.substring(0, 20);
-          var companyDiv = `<div class="company-preview" data-index="${i}">
-            <h2>${resp[i].name}</h2>
-            <h3>Status: <span>${resp[i].status}</span></h3>
-            <h3>${notes}</h3>
-          </div>`;
-          $(".companies").append(companyDiv);
-        }
-      }
-    });
-
-    $(".left").on("click", ".company-preview", function(){
-      var companyIndex = Number($(this).attr("data-index"));
-      console.log(companyIndex)
-      if (!companyData[companyIndex]) return;
-      var company = companyData[companyIndex];
-      $("#name").val("").val(company.name);
-      $("#status").val("").val(company.status);
-      $("#contact_person").val("").val(company.contact_person);
-      $("#email").val("").val(company.email);
-      $("#website").val("").val(company.website);
-      $("#phone").val("").val(company.phone);
-      $("#address").val("").val(company.address);
-      $("#notes").val("").val(company.notes);
-      $(".right").css("opacity", 1);
-    });
-
-  </script>
+  
 </body>
 </html>

@@ -108,7 +108,6 @@ h1,h2,h3,h4,h5,h6, p, span, div, button, a {
 }
 .right{
   padding: 2rem;
-  opacity: 0;
   transition: all 1s;
 }
 .right input[type="text"], .right textarea{
