@@ -7,7 +7,7 @@
   <title>FVI Employer Relations</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body ng-app='ERM' ng-controller='MainController'>
   <div class="left">
     <div id="wrap">
       <form action="">
@@ -16,7 +16,11 @@
       <input id="search_submit" value="Rechercher" type="submit">
       </form>
     </div>
-    <div class="companies"></div>
+    <div class="companies">
+      <div class='company-preview' ng-repeat="employer in employers" ng-click='employerCardClick()'>
+        <h4>{{employer.name}}</h4>
+      </div>
+    </div>
   </div>
   <div class="right">
     <div class="two-col">
@@ -58,6 +62,7 @@
       <textarea id="notes" ></textarea>
     </div>
   </div>
-  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.9/angular.min.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>

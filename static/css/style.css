@@ -84,21 +84,23 @@ h1,h2,h3,h4,h5,h6, p, span, div, button, a {
   width:28%;
   height: 100vh;
   display: inline-block;
-  position: relative;
+  position: fixed;
   top:0;
 
 }
 .right{
-  width: 69%;
+  width: 70%;
   height: 100vh;
   display:inline-block;
+	position:absolute;
+	right:0;
 }
 
 .company-preview{
   width: 85%;
-  margin: 1.5rem auto;
+  margin: 1rem auto;
   box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.4);
-  padding: 0.5rem 1rem 1rem 1rem;
+  padding: 0.5rem;
   transition: all 0.4s;
 }
 
