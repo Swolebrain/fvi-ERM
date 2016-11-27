@@ -28,6 +28,45 @@ app.post('/api/employers', function(req, res){
   })
 });
 
+app.get('/api/employers', function(req, res){
+  Employer.find()
+  .catch(err=>{
+    console.log(err.toString());
+    res.status(500).send(err.toString());
+  })
+  .then(dbres=>{
+    console.log(dbres);
+    res.json(dbres);
+  });
+});
+
+app.delete('/api/employers/:id', function(req, res){
+  let idToDelete = req.params.id;
+  Employer.findByIdAndRemove( idToDelete)
+  .catch(err=>{
+    console.log(err.toString());
+    res.status(500).send(err.toString());
+  })
+  .then(dbres=>{
+    console.log(dbres);
+    if (dbres) res.json(dbres);
+    else res.status(404).send("ID doesnt exist");
+  });
+});
+
+app.put('/api/employers/:id', function(req, res){
+  let idToDelete = req.params.id;
+  Employer.findByIdAndUpdate( idToDelete, req.body)
+  .catch(err=>{
+    console.log(err.toString());
+    res.status(500).send(err.toString());
+  })
+  .then(dbres=>{
+    console.log(dbres);
+    res.json(dbres);
+  });
+});
+
 
 app.listen(PORT, function(){
   console.log("Server listening on port "+PORT);
