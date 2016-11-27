@@ -55,6 +55,8 @@ app.delete('/api/employers/:id', function(req, res){
 });
 
 app.put('/api/employers/:id', function(req, res){
+  console.log("Received request to update employer id "+req.params.id);
+  console.log(req.body);
   let idToDelete = req.params.id;
   Employer.findByIdAndUpdate( idToDelete, req.body)
   .catch(err=>{

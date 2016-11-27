@@ -5,9 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>FVI Employer Relations</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body ng-app='ERM' ng-controller='MainController'>
+  <div class='controls'>
+    <i class="fa fa-floppy-o" aria-hidden="true" ng-click="saveCurrentEmployer()"></i>
+  </div>
   <div class="left">
     <div id="wrap">
       <form action="">
@@ -36,7 +40,7 @@
     <div class="two-col">
       <div class="input-field">
         <div class="label">Contact</div>
-        <input type="text" id="contact_person" ng-model="currentEmployer.contact_person">
+        <input type="text" id="contact_person" ng-model="currentEmployer.contactPerson">
       </div>
       <div class="input-field">
         <div class="label">E-mail</div>

@@ -145,3 +145,20 @@ h1,h2,h3,h4,h5,h6, p, span, div, button, a {
 .right textarea{
   height: 25vh;
 }
+
+.controls {
+	position: absolute;
+	right: 1rem;
+	top: 1rem;
+	z-index: 2;
+}
+
+.controls i{
+	color: rgba(0,0,0,0.3);
+	font-size: 2rem;
+	transition: all 0.4s ease-in-out;
+}
+
+.controls i:hover{
+	color: rgba(0,0,0,0.6);
+}
