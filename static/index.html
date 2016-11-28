@@ -19,6 +19,18 @@
     <div class="companies"></div>
   </div>
   <div class="right">
+    <div class="controls">
+      <span id="feedback"></span>
+      <span id="add">
+        <img src="icons/squared-plus.svg" alt="add"  />
+      </span>
+      <span id="save">
+        <img src="icons/save.svg" alt="save"  />
+      </span>
+      <span id="remove">
+        <img src="icons/squared-minus.svg" alt="remove" />
+      </span>
+    </div>
     <div class="two-col">
       <div class="input-field">
         <div class="label">Name</div>
@@ -62,8 +74,10 @@
   src="https://code.jquery.com/jquery-3.1.1.min.js"
   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
   crossorigin="anonymous"></script>
+  <script src="js/svgsupport.js"></script>
   <script>
     var companyData;
+    var currentIndex;
     $.ajax({
       url: '/employers',
       success: function(resp){
@@ -84,6 +98,7 @@
 
     $(".left").on("click", ".company-preview", function(){
       var companyIndex = Number($(this).attr("data-index"));
+      currentIndex = companyIndex;
       console.log(companyIndex)
       if (!companyData[companyIndex]) return;
       var company = companyData[companyIndex];
@@ -96,6 +111,59 @@
       $("#address").val("").val(company.address);
       $("#notes").val("").val(company.notes);
       $(".right").css("opacity", 1);
+    });
+
+    $("#save").click(function(){
+      console.log("trying to save...");
+      console.log(companyData[currentIndex]);
+      var saveData = {
+        id: companyData[currentIndex].id,
+        name: $("#name").val(),
+        status: $("#status").val(),
+        contact_person: $("#contact_person").val(),
+        email: $("#email").val(),
+        website: $("#website").val(),
+        phone: $("#phone").val(),
+        address: $("#address").val(),
+        notes: $("#notes").val(),
+      };
+      $.ajax({
+        url: 'employers',
+        method: 'PUT',
+        success: function(res){
+          console.log(res);
+          if (res.affectedRows === 1){
+            $("#feedback").html("Data saved.");
+            setTimeout(function(){
+              $("#feedback").html("");
+            }, 1500);
+            companyData[currentIndex] = saveData;
+            console.log(companyData)
+          }
+        },
+        data: saveData
+      });
+    });
+
+    $("#add").click(function(){
+      var saveData = {
+        name: $("#name").val(),
+        status: $("#status").val(),
+        contact_person: $("#contact_person").val(),
+        email: $("#email").val(),
+        website: $("#website").val(),
+        phone: $("#phone").val(),
+        address: $("#address").val(),
+        notes: $("#notes").val(),
+      };
+      $.ajax({
+        url: 'employers',
+        method: 'POST',
+        data: saveData,
+        success: function(res){
+          console.log(res);
+        }
+      })
     });
 
   </script>
